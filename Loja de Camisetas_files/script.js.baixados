@@ -1,19 +1,32 @@
-let cartItems = [];
-let total = 0;
+// Array para armazenar os itens do carrinho
+let cart = [];
 
+// Função para adicionar itens ao carrinho
 function addToCart(itemName, itemPrice) {
-  cartItems.push({ name: itemName, price: itemPrice });
-  total += itemPrice;
+  // Adiciona o item ao carrinho
+  cart.push({ name: itemName, price: itemPrice });
+
+  // Atualiza a lista de itens no carrinho
   updateCart();
 }
 
+// Função para atualizar a exibição do carrinho
 function updateCart() {
-  const cartElement = document.getElementById('cart-items');
-  cartElement.innerHTML = '';
-  cartItems.forEach(item => {
-    const li = document.createElement('li');
-    li.textContent = ${item.name} - R$ ${item.price.toFixed(2)};
-    cartElement.appendChild(li);
+  const cartItemsList = document.getElementById('cart-items');
+  const totalElement = document.getElementById('total');
+  
+  // Limpa a lista de itens no carrinho
+  cartItemsList.innerHTML = '';
+
+  // Adiciona os itens ao carrinho
+  let total = 0;
+  cart.forEach(item => {
+    const listItem = document.createElement('li');
+    listItem.textContent = `${item.name} - R$ ${item.price.toFixed(2)}`;
+    cartItemsList.appendChild(listItem);
+    total += item.price;
   });
-  document.getElementById('total').textContent = Total: R$ ${total.toFixed(2)};
+
+  // Atualiza o total
+  totalElement.textContent = `Total: R$ ${total.toFixed(2)}`;
 }
